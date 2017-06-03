@@ -18,7 +18,7 @@ namespace FooBot.Services
 
         public static async Task<string> getRandomJoke()
         {
-            string ret = "Ahora no me apetece...";
+            string ret = "";
 
             using (HttpClient client = new HttpClient())
             {

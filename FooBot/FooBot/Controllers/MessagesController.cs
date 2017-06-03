@@ -38,6 +38,10 @@ namespace FooBot
                             var lugar = luisResponse.entities[0].entity;
                             replyMessage = await GetTiempo(lugar);
                             break;
+
+                        case "Chiste":
+                            replyMessage = await GetJoke();
+                            break;
                     }
                 } else
                 {
@@ -70,6 +74,19 @@ namespace FooBot
                 returnValue = $"Hoy en {tiempoItem.location.name} está el tiempo {tiempoItem.current.condition.text}.";
             }
             return returnValue;
+        }
+
+        private async Task<string> GetJoke()
+        {
+            string joke = await JokeServicio.getRandomJoke();
+
+            // Si no hemos podido conseguir un chiste, devolvemos un mensaje standard
+            if (String.IsNullOrEmpty(joke))
+            {
+                joke = "Ahora no me apetece...";
+            }
+
+            return joke;
         }
 
         private Activity HandleSystemMessage(Activity message)
