@@ -29,14 +29,18 @@ namespace FooBot
                 var replyMessage = string.Empty;
 
                 //Comprobamos que Luis ha identificado bien el texto
-                if (luisResponse.intents.Count() > 0 && luisResponse.entities.Count() > 0)
+                if (luisResponse.intents.Count() > 0)
                 {
                     //Los "intents" se ordenan dependiendo de la probalidad de que sea la correcta, por eso usamos el [0]
                     switch(luisResponse.intents[0].intent)
                     {
                         case "Tiempo":
-                            var lugar = luisResponse.entities[0].entity;
-                            replyMessage = await GetTiempo(lugar);
+                            if(luisResponse.entities.Count() > 0)
+                            {
+                                var lugar = luisResponse.entities[0].entity;
+                                replyMessage = await GetTiempo(lugar);
+                            }
+
                             break;
 
                         case "Chiste":
