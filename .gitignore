@@ -286,3 +286,6 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/FooBot/FooBot/Web_prod.config
+/FooBot/FooBot/Web_prod.Debug.config
+/FooBot/FooBot/Web_prod.Release.config
