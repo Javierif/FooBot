@@ -20,8 +20,7 @@ namespace FooBot
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
-            //Ignoramos todas las peticiones qu e no contengan fooBot
-            if (activity.Type == ActivityTypes.Message && activity.Text.Contains("@devFooBot"))
+            if (activity.Type == ActivityTypes.Message && activity.Text.Contains("devFooBot"))
             {
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
 
@@ -29,7 +28,7 @@ namespace FooBot
                 var luisResponse = await LuisServicio.ParseUserConversation(texto);
                 var replyMessage = string.Empty;
 
-                //Comprobamos que Luis ha identificado bien el textoç
+                //Comprobamos que Luis ha identificado bien el texto
                 if (luisResponse.intents.Count() > 0 && luisResponse.entities.Count() > 0)
                 {
                     //Los "intents" se ordenan dependiendo de la probalidad de que sea la correcta, por eso usamos el [0]
