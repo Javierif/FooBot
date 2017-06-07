@@ -20,48 +20,51 @@ namespace FooBot
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
-            if (activity.Type == ActivityTypes.Message && activity.Text.Contains("devFooBot"))
+            try
             {
-                ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-
-                var texto = activity.Text;
-                var luisResponse = await LuisServicio.ParseUserConversation(texto);
-                var replyMessage = string.Empty;
-
-                //Comprobamos que Luis ha identificado bien el texto
-                if (luisResponse.intents.Count() > 0)
+                if (activity.Type == ActivityTypes.Message && activity.Text.Contains("devFooBot"))
                 {
-                    //Los "intents" se ordenan dependiendo de la probalidad de que sea la correcta, por eso usamos el [0]
-                    switch(luisResponse.intents[0].intent)
+                    ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+
+                    var texto = activity.Text;
+                    var luisResponse = await LuisServicio.ParseUserConversation(texto);
+                    var replyMessage = string.Empty;
+
+                    //Comprobamos que Luis ha identificado bien el texto
+                    if (luisResponse.intents.Count() > 0)
                     {
-                        case "Tiempo":
-                            if(luisResponse.entities.Count() > 0)
-                            {
-                                var lugar = luisResponse.entities[0].entity;
-                                replyMessage = await GetTiempo(lugar);
-                            }
+                        //Los "intents" se ordenan dependiendo de la probalidad de que sea la correcta, por eso usamos el [0]
+                        switch(luisResponse.intents[0].intent)
+                        {
+                            case "Tiempo":
+                                if(luisResponse.entities.Count() > 0)
+                                {
+                                    var lugar = luisResponse.entities[0].entity;
+                                    replyMessage = await GetTiempo(lugar);
+                                }
 
-                            break;
+                                break;
 
-                        case "Chiste":
-                            replyMessage = await GetJoke();
-                            break;
+                            case "Chiste":
+                                replyMessage = await GetJoke();
+                                break;
+                        }
+                    } else
+                    {
+                        replyMessage = "Perdona, pero no te entiendo";
                     }
-                } else
-                {
-                    replyMessage = "Perdona, pero no te entiendo";
-                }
                 
-                Activity reply;
-                reply = activity.CreateReply(replyMessage);
+                    Activity reply;
+                    reply = activity.CreateReply(replyMessage);
               
 
-                await connector.Conversations.ReplyToActivityAsync(reply);
-            }
-            else
-            {
-                HandleSystemMessage(activity);
-            }
+                    await connector.Conversations.ReplyToActivityAsync(reply);
+                }
+                else
+                {
+                    HandleSystemMessage(activity);
+                }
+            } catch(Exception e ){ }
             var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
         }
