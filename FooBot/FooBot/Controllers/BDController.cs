@@ -33,32 +33,32 @@ namespace FooBot.Controllers
 
 
             //Con esta función obtenemos las frases de la BD que pueden ser de diferentes tipos
-            //tipo 1 - Saludo
+            //tipo 1 - Saludo ----- tipo 2 - no entiende
             //Revisar Wiki para ver todos los tipos https://github.com/Javierif/FooBot/wiki
-            public string getFrases(int tipo)
+            public List<string> getFrases(int tipo)
             {
-                string frase = string.Empty;
+                List<string> frases = new List<string>();
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
                     StringBuilder sb = new StringBuilder();
 
-                    sb.Append("SELECT frase FROM Frases Where tipo='" + tipo + "'");
+                    sb.Append("SELECT frase FROM TBFrase Where tipo='" + tipo + "'");
                     String sql = sb.ToString();
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            //el while no es necesario realmente, pero lo dejo por ahora para que tengais un ejemplo de obtener varios elementos.
+                            //obtenemos todos los "rows" con todas las frases de la BD
                             while (reader.Read())
                             {
-                                frase = reader.GetString(0);
+                                frases.Add(reader.GetString(0));
                             }
                         }
                     }
                 }
-                return frase;
+                return frases;
             }
         }
     }
