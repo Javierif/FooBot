@@ -30,6 +30,9 @@ namespace FooBot.Controllers
                     case "Chiste":
                         replyMessage = await getJoke();
                         break;
+                    default:
+                        replyMessage = getNoEntiendo();
+                        break;
                 }
             }
             else

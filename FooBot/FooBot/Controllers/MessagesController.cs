@@ -28,7 +28,7 @@ namespace FooBot
                 IAController _IAController = new IAController();
                 Activity reply;
 
-                if (activity.Type == ActivityTypes.Message && !string.IsNullOrEmpty(activity.Text) && activity.Text.ToUpper().Contains("devfoobot"))
+                if (activity.Type == ActivityTypes.Message && !string.IsNullOrEmpty(activity.Text) && activity.Text.ToUpper().Contains("DEVFOOBOT"))
                 {
                    string respuesta = await _IAController.analizaFrase(activity.Text);
                    reply = activity.CreateReply(respuesta);
