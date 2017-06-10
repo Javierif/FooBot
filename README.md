@@ -1,14 +1,13 @@
 # FooBot
-Bot para telegram en C#
+Bot para telegram creado en C#, Botframework y Luis.ai
 
-# Como arrancar el bot en local
-En esta sección explicaré como arrancar el bot en local para que podamos ver el funcionamiento del bot y las modificaciones que hemos realizado están correctas.
+Creado por la comunidad FCDevelopers.
 
--Lo primero que necesitamos es descargar el emulador de Botframework que nos hará las veces de chat desde [Emulador Botframework](https://emulator.botframework.com/)
 
--Una vez descargado e instalado, lo ejecutamos y rellenamos la barra de direcciones con los siguientes datos:
+<img src="https://image.ibb.co/mJnfkv/Nombre.png" alt="Nombre" border="0">
 
-(Pendiente)
 
--Ahora solamente tenemos que darle al play a nuestro proyecto en visual studio y podremos hablarle al bot:
-![screenshot](https://github.com/Javierif/BotTiempo/blob/master/BotTiempo/BotTiempo/ScreenShots/2.png?raw=true)
+Si.. solo se contar chistes y decir el tiempo ¬¬ pero se cuando me pides un chiste y cuando el tiempo, ya soy más listo que la media del grupo.
+
+
+### Visita la <a href="https://github.com/Javierif/FooBot/wiki">Wiki</a> para informarte de como funciona.
